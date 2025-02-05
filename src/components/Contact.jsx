@@ -1,4 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +13,38 @@ const Contact = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const contactRef = useRef(null);
+
+  useEffect(() => {
+    // Add scroll animation to contact section
+    if (contactRef.current) {
+      gsap.fromTo(
+        contactRef.current,
+        {
+          opacity: 0,
+          y: 100, // Start 100 pixels below original position
+          scale: 0.9 // Slightly scaled down
+        },
+        {
+          opacity: 1,
+          y: 0, // Return to original position
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: contactRef.current,
+            start: "top 80%", // Animation starts when top of contact section enters 80% of viewport
+            toggleActions: "play none none reverse" // Play forward when entering, reverse when leaving
+          }
+        }
+      );
+    }
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -59,7 +96,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="py-24 px-4"> {/* Added vertical padding */}
+    <div 
+      ref={contactRef} 
+      className="py-24 px-4 opacity-0" // Added opacity-0 for initial state
+    >
       <div className="max-w-md mx-auto p-8 bg-neutral-900 rounded-xl shadow-lg">
         <h2 className="text-4xl font-bold text-center mb-8 text-white">Contact <span className="text-neutral-500"> Me </span></h2>
         <form onSubmit={handleSubmit} className="space-y-6">

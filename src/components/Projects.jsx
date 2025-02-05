@@ -1,24 +1,74 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import blogImage from '../assets/projects/blog.jpg'; 
 import calcImage from '../assets/projects/calculatrice.jpg'; 
 import tachesImage from '../assets/projects/taches.jpg'; 
 import stockImage from '../assets/projects/stock.jpg'; 
 import { FaGithub } from 'react-icons/fa';
 
+// Register ScrollTrigger plugin
+gsap.registerPlugin(ScrollTrigger);
+
 const Projects = () => {
+  // Create refs for each project
+  const projectRefs = useRef([]);
+
+  useEffect(() => {
+    // Add scroll animations to each project
+    projectRefs.current.forEach((project) => {
+      gsap.fromTo(
+        project,
+        {
+          opacity: 0,
+          y: 100, // Start 100 pixels below original position
+          scale: 0.9 // Slightly scaled down
+        },
+        {
+          opacity: 1,
+          y: 0, // Return to original position
+          scale: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: project,
+            start: "top 80%", // Animation starts when top of project enters 80% of viewport
+            toggleActions: "play none none reverse" // Play forward when entering, reverse when leaving
+          }
+        }
+      );
+    });
+
+    // Cleanup function
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
+
+  // Helper function to add refs
+  const addToRefs = (el) => {
+    if (el && !projectRefs.current.includes(el)) {
+      projectRefs.current.push(el);
+    }
+  };
 
   return (
     <div className="border-b border-neutral-900 py-12">
-      <h2 className="my-20 text-center text-4xl"><span className="text-neutral-500">My </span>Projects</h2>
+      <h2 className="my-20 text-center text-4xl">
+        <span className="text-neutral-500">My </span>Projects
+      </h2>
       
       <div className="max-w-6xl mx-auto px-4">
-        {/* Project 1: Blog */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 mb-16">
+        {/* Project 1: Calculatrice */}
+        <div 
+          ref={addToRefs} 
+          className="flex flex-col lg:flex-row items-center gap-8 mb-16 opacity-0"
+        >
           {/* Project Image */}
           <div className="w-full lg:w-1/2">
             <img 
               src={calcImage} 
-              alt="Blog Project" 
+              alt="Calculatrice Project" 
               className="w-full h-auto rounded-lg shadow-lg object-cover"             
             />
           </div>
@@ -32,7 +82,7 @@ const Projects = () => {
             
             {/* GitHub Link Button */}
             <a 
-              href="https://github.com/yourusername/blog-project" 
+              href="https://github.com/yourusername/calculatrice-project" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center w-48 bg-purple-600 text-white 
@@ -43,11 +93,12 @@ const Projects = () => {
             </a>
           </div>
         </div>
-      </div>
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Project 1: Blog */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 mb-16">
-          {/* Project Image */}
+
+        {/* Project 2: Blog */}
+        <div 
+          ref={addToRefs} 
+          className="flex flex-col lg:flex-row items-center gap-8 mb-16 opacity-0"
+        >
           <div className="w-full lg:w-1/2">
             <img 
               src={blogImage} 
@@ -56,14 +107,12 @@ const Projects = () => {
             />
           </div>
           
-          {/* Project Description */}
           <div className="w-full lg:w-1/2">
             <h3 className="text-3xl font-bold mb-4">Blog Website</h3>
             <p className="text-neutral-400 mb-6">
             Ce projet met en avant les fondamentaux du développement web, tout en assurant une navigation fluide et une structure bien organisée.
             </p>
             
-            {/* GitHub Link Button */}
             <a 
               href="https://github.com/Hamzaouk/Blog-Statique" 
               target="_blank" 
@@ -76,28 +125,28 @@ const Projects = () => {
             </a>
           </div>
         </div>
-      </div>
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Project 1: Blog */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 mb-16">
-          {/* Project Image */}
+
+        {/* Project 3: Stock Management */}
+        <div 
+          ref={addToRefs} 
+          className="flex flex-col lg:flex-row items-center gap-8 mb-16 opacity-0"
+        >
           <div className="w-full lg:w-1/2">
             <img 
               src={stockImage} 
-              alt="Blog Project" 
+              alt="Stock Management Project" 
               className="w-full h-auto rounded-lg shadow-lg object-cover"             
             />
           </div>
           
-          {/* Project Description */}
           <div className="w-full lg:w-1/2">
             <h3 className="text-3xl font-bold mb-4">Gestionaire de stock</h3>
             <p className="text-neutral-400 mb-6">
-            une application basée sur Node.js conçue pour faciliter la gestion des stocks d'une entreprise, qu'il s'agisse de petites, moyennes ou grandes structures. Ce projet offre une solution centralisée et efficace pour suivre les produits, surveiller les niveaux de stock, et optimiser les opérations d'approvisionnement.            </p>
+            Une application basée sur Node.js conçue pour faciliter la gestion des stocks d'une entreprise, qu'il s'agisse de petites, moyennes ou grandes structures. Ce projet offre une solution centralisée et efficace pour suivre les produits, surveiller les niveaux de stock, et optimiser les opérations d'approvisionnement.
+            </p>
             
-            {/* GitHub Link Button */}
             <a 
-              href="https://github.com/yourusername/blog-project" 
+              href="https://github.com/yourusername/stock-management" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center w-48 bg-purple-600 text-white 
@@ -108,20 +157,20 @@ const Projects = () => {
             </a>
           </div>
         </div>
-      </div>
-      <div className="max-w-6xl mx-auto px-4">
-        {/* Project 1: Blog */}
-        <div className="flex flex-col lg:flex-row items-center gap-8 mb-16">
-          {/* Project Image */}
+
+        {/* Project 4: Task Management */}
+        <div 
+          ref={addToRefs} 
+          className="flex flex-col lg:flex-row items-center gap-8 mb-16 opacity-0"
+        >
           <div className="w-full lg:w-1/2">
             <img 
               src={tachesImage} 
-              alt="Blog Project" 
+              alt="Task Management Project" 
               className="w-full h-auto rounded-lg shadow-lg object-cover"             
             />
           </div>
           
-          {/* Project Description */}
           <div className="w-full lg:w-1/2">
             <h3 className="text-3xl font-bold mb-4">Gestionaire des taches</h3>
             <p className="text-neutral-400 mb-6">
@@ -129,9 +178,8 @@ const Projects = () => {
             Les utilisateurs peuvent gérer leurs tâches grâce à des opérations CRUD complètes, avec des données stockées dans une base MongoDB.
             </p>
             
-            {/* GitHub Link Button */}
             <a 
-              href="https://github.com/yourusername/blog-project" 
+              href="https://github.com/yourusername/task-management" 
               target="_blank" 
               rel="noopener noreferrer"
               className="flex items-center justify-center w-48 bg-purple-600 text-white 
