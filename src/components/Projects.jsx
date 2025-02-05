@@ -9,7 +9,7 @@ const Projects = () => {
 
   return (
     <div className="border-b border-neutral-900 py-12">
-      <h2 className="my-20 text-center text-4xl">Projects</h2>
+      <h2 className="my-20 text-center text-4xl"><span className="text-neutral-500">My </span>Projects</h2>
       
       <div className="max-w-6xl mx-auto px-4">
         {/* Project 1: Blog */}
