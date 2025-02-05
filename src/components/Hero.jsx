@@ -2,6 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { TextPlugin } from 'gsap/TextPlugin';
 import Pic from "../assets/photo.jpg"
+import Vegita from "../assets/vegeta-gif-3.gif"
+
 
 // Register TextPlugin
 gsap.registerPlugin(TextPlugin);
@@ -54,7 +56,6 @@ const Hero = () => {
       tl.kill();
     };
   }, []);
-
   return (
     <div id="hero" className="border-b border-neutral-900 pb-4 lg:mb-35 min-h-screen pt-32 lg:pt-0 flex items-center">
       <div className="flex flex-wrap w-full">
@@ -74,7 +75,7 @@ const Hero = () => {
         </div>
         <div className="w-full lg:w-1/2 lg:p-8">
           <div className="flex justify-center">
-            <img src={Pic} alt="Profile pic" className="rounded-full" />
+            <img src={Vegita} alt="Profile pic" className="rounded-xl" />
           </div>
         </div>
       </div>

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import blogImage from '../assets/projects/blog.jpg'; 
-import calcImage from '../assets/projects/calculatrice.jpg'; 
-import tachesImage from '../assets/projects/taches.jpg'; 
-import stockImage from '../assets/projects/stock.jpg'; 
+import blogImage from '../assets/projects/Blog-Cover.gif'; 
+import calcImage from '../assets/projects/calculator.gif'; 
+import tachesImage from '../assets/projects/200w.gif'; 
+import stockImage from '../assets/projects/st.gif'; 
 import { FaGithub } from 'react-icons/fa';
 
 // Register ScrollTrigger plugin
