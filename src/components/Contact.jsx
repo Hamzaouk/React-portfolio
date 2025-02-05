@@ -96,10 +96,7 @@ const Contact = () => {
   };
 
   return (
-    <div 
-      ref={contactRef} 
-      className="py-24 px-4 opacity-0" // Added opacity-0 for initial state
-    >
+    <div id="contact" ref={contactRef} className="py-24 px-4 opacity-0">
       <div className="max-w-md mx-auto p-8 bg-neutral-900 rounded-xl shadow-lg">
         <h2 className="text-4xl font-bold text-center mb-8 text-white">Contact <span className="text-neutral-500"> Me </span></h2>
         <form onSubmit={handleSubmit} className="space-y-6">
