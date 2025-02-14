@@ -28,6 +28,12 @@ const Navbar = () => {
         
         <div className="flex items-center space-x-8">
           <ul className="flex space-x-6">
+          <li 
+              onClick={() => scrollToSection('hero')}
+              className="text-white hover:text-gray-400 cursor-pointer transition-colors duration-200"
+            >
+              Home
+            </li>
             <li 
               onClick={() => scrollToSection('about')}
               className="text-white hover:text-gray-400 cursor-pointer transition-colors duration-200"
